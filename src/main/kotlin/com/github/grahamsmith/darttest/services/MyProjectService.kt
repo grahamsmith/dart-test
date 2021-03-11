@@ -1,7 +1,7 @@
-package org.jetbrains.plugins.template.services
+package com.github.grahamsmith.darttest.services
 
+import com.github.grahamsmith.darttest.MyBundle
 import com.intellij.openapi.project.Project
-import org.jetbrains.plugins.template.MyBundle
 
 class MyProjectService(project: Project) {
 

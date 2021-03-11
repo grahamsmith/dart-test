@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.grahamsmith.darttest.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.grahamsmith.darttest.MyBundle
 
 class MyApplicationService {
 
