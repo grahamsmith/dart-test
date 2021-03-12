@@ -28,11 +28,5 @@
             <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
-        <action id="com.github.grahamsmith.darttest.actions.CreateDartTestFromIntentionAction"
-                class="com.github.grahamsmith.darttest.actions.CreateDartTestFromIntentionAction" text="Create Dart Test Action"
-                description="Creates a dart test in a mirrored package tree">
-            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
-            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-        </action>
     </actions>
 </idea-plugin>
