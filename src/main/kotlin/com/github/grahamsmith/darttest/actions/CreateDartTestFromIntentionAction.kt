@@ -12,16 +12,14 @@ import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.*
+import com.intellij.psi.PsiDirectory
+import com.intellij.psi.PsiFile
+import com.intellij.psi.PsiManager
 import com.intellij.psi.impl.file.PsiDirectoryFactory
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.IncorrectOperationException
 import com.jetbrains.lang.dart.DartFileType
 import com.jetbrains.lang.dart.psi.DartClassDefinition
-
-import java.lang.Exception
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
 
 class CreateDartTestFromIntentionAction : IntentionAction {
     override fun startInWriteAction() = true
@@ -36,7 +34,7 @@ class CreateDartTestFromIntentionAction : IntentionAction {
 
     override fun invoke(project: Project, editor: Editor?, file: PsiFile?) {
 
-        if(editor == null || file == null) {
+        if (editor == null || file == null) {
             return
         }
 
@@ -44,12 +42,15 @@ class CreateDartTestFromIntentionAction : IntentionAction {
             "${it}$TEST_FILE_NAME_SUFFIX"
         }
 
-        val projectPath = ProjectFileIndex.SERVICE.getInstance(project).getContentRootForFile(file.virtualFile)
+        val projectFileIndex = ProjectFileIndex.SERVICE.getInstance(project)
+        val projectPath = projectFileIndex.getContentRootForFile(file.virtualFile)
                 ?: throw IllegalArgumentException("Unable to get project path")
 
-        val relativePath = VfsUtilCore.getRelativePath(file.virtualFile.parent, projectPath).orEmpty().replace("lib/", "")
+        val relativePath = VfsUtilCore.getRelativePath(file.virtualFile.parent, projectPath)
+                .orEmpty()
+                .replace("lib/", "")
 
-        val newPath = when(isAlreadyInTestDirectory(relativePath)) {
+        val newPath = when (isAlreadyInTestDirectory(relativePath)) {
             true -> "${projectPath.toNioPath()}$relativePath"
             false -> "${projectPath.toNioPath()}/${CreateDartTestAction.UNIT_TEST_PATH}$relativePath"
         }
@@ -57,9 +58,9 @@ class CreateDartTestFromIntentionAction : IntentionAction {
         val newDir = VfsUtil.createDirectories(newPath)
         val newDirForReals = PsiDirectoryFactory.getInstance(project).createDirectory(newDir)
 
-        if(fileExists(newDirForReals, fileName)) {
+        if (fileExists(newDirForReals, fileName)) {
             val existingFile = newDirForReals.virtualFile.findChild("$fileName$DART_FILE_EXTENSION")
-            existingFile?.let { FileEditorManager.getInstance(project).openFile(it, true)}
+            existingFile?.let { FileEditorManager.getInstance(project).openFile(it, true) }
         } else {
             createTestFile(project, fileName, newDirForReals)
         }
@@ -73,16 +74,18 @@ class CreateDartTestFromIntentionAction : IntentionAction {
         runUndoTransparentWriteAction {
 
             val fileTemplateManager = FileTemplateManager.getInstance(project)
+            val fileEditorManager = FileEditorManager.getInstance(project)
             val template = fileTemplateManager.getInternalTemplate("Dart Test File")
-            val element: PsiElement
+            val properties = fileTemplateManager.defaultProperties
+
             try {
-                element = FileTemplateUtil.createFromTemplate(template, fileName, fileTemplateManager.defaultProperties, dir)
-                val psiFile = element.containingFile
-                psiFile.virtualFile?.let { FileEditorManager.getInstance(dir.project).openFile(it, true) }
+                FileTemplateUtil.createFromTemplate(template, fileName, properties, dir).containingFile?.let {
+                    it.virtualFile?.let { virtualFile -> fileEditorManager.openFile(virtualFile, true) }
+                }
             } catch (e: IncorrectOperationException) {
-                throw e
+                println("Error creating the test file")
             } catch (e: Exception) {
-                throw e
+                println("Error creating the test file")
             }
         }
     }
@@ -107,7 +110,7 @@ class CreateDartTestFromIntentionAction : IntentionAction {
         return relativeFilePath.contains(UNIT_TEST_PATH)
     }
 
-    companion object{
+    companion object {
         const val UNIT_TEST_PATH = "test/unit-tests/"
         const val TEST_FILE_NAME_SUFFIX = "_test"
         const val DART_FILE_EXTENSION = ".dart"

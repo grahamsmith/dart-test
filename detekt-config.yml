@@ -6,3 +6,9 @@ formatting:
     continuationIndentSize: 8
   ParameterListWrapping:
     indentSize: 8
+exceptions:
+  TooGenericExceptionCaught:
+    excludes: ['**/actions/CreateDartTestFromIntentionAction.kt']
+  SwallowedException:
+    excludes: ['**/actions/CreateDartTestFromIntentionAction.kt']
+

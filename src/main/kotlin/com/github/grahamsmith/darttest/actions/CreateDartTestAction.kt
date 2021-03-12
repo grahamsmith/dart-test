@@ -4,39 +4,21 @@ import com.github.grahamsmith.darttest.MyBundle
 import com.intellij.ide.actions.CreateFileFromTemplateAction
 import com.intellij.ide.actions.CreateFileFromTemplateDialog
 import com.intellij.ide.fileTemplates.FileTemplate
-import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiDirectory
-
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.actionSystem.LangDataKeys
 import com.intellij.openapi.module.ModuleTypeWithWebFeatures
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectFileIndex
-import com.intellij.psi.PsiFile
 import com.intellij.openapi.util.io.FileUtilRt
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VfsUtilCore
-import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiDirectory
+import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.file.PsiDirectoryFactory
-import icons.DartIcons
-import java.lang.IllegalArgumentException
-import com.intellij.util.IncorrectOperationException
-
-import com.intellij.psi.PsiElement
-
-import org.bouncycastle.asn1.iana.IANAObjectIdentifiers.directory
-
-import com.intellij.openapi.fileEditor.FileEditorManager
-
-import com.intellij.ide.fileTemplates.FileTemplateManager
-
-import com.intellij.ide.fileTemplates.FileTemplateUtil
 import com.intellij.psi.search.FileTypeIndex
 import com.jetbrains.lang.dart.DartFileType
 import com.jetbrains.lang.dart.sdk.DartSdk
-import org.bouncycastle.asn1.iana.IANAObjectIdentifiers
-import java.lang.Character.getName
-import java.lang.Exception
-
+import icons.DartIcons
 
 class CreateDartTestAction : CreateFileFromTemplateAction(MyBundle.messagePointer("action.title.dart-test.file"),
         MyBundle.messagePointer("action.description.create.dart-test.file"),
@@ -46,7 +28,6 @@ class CreateDartTestAction : CreateFileFromTemplateAction(MyBundle.messagePointe
         builder
                 .setTitle(MyBundle.message("new.dart-test.file.title"))
                 .addKind(MyBundle.message("list.item.dart-test.file"), DartIcons.Dart_test, "Dart Test File")
-
     }
 
     override fun isAvailable(dataContext: DataContext?): Boolean {
@@ -65,7 +46,7 @@ class CreateDartTestAction : CreateFileFromTemplateAction(MyBundle.messagePointe
 
     override fun createFileFromTemplate(name: String?, template: FileTemplate?, dir: PsiDirectory?): PsiFile {
 
-        if(dir == null) {
+        if (dir == null) {
             throw IllegalArgumentException("Provided directory is null")
         }
 
@@ -77,7 +58,7 @@ class CreateDartTestAction : CreateFileFromTemplateAction(MyBundle.messagePointe
 
         val relativePath = VfsUtilCore.getRelativePath(dir.virtualFile, projectPath).orEmpty().replace("lib/", "")
 
-        val newPath = when(isAlreadyInTestDirectory(relativePath)) {
+        val newPath = when (isAlreadyInTestDirectory(relativePath)) {
             true -> "${projectPath.toNioPath()}/$relativePath"
             false -> "${projectPath.toNioPath()}/$UNIT_TEST_PATH$relativePath"
         }
@@ -92,7 +73,7 @@ class CreateDartTestAction : CreateFileFromTemplateAction(MyBundle.messagePointe
         return relativeFilePath.contains(UNIT_TEST_PATH)
     }
 
-    companion object{
+    companion object {
         const val UNIT_TEST_PATH = "test/unit-tests/"
     }
 }

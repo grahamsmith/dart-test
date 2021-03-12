@@ -29,7 +29,7 @@ repositories {
     jcenter()
 }
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.15.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.16.0")
 }
 
 // Configure gradle-intellij-plugin plugin.
@@ -55,9 +55,9 @@ changelog {
 // Configure detekt plugin.
 // Read more: https://detekt.github.io/detekt/kotlindsl.html
 detekt {
+    toolVersion = "1.16.0"
     config = files("./detekt-config.yml")
     buildUponDefaultConfig = true
-
     reports {
         html.enabled = false
         xml.enabled = false
