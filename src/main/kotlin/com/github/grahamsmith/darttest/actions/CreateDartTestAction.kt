@@ -1,6 +1,7 @@
 package com.github.grahamsmith.darttest.actions
 
 import com.github.grahamsmith.darttest.MyBundle
+import com.github.grahamsmith.darttest.actions.ActionHelper.Companion.UNIT_TEST_PATH
 import com.intellij.ide.actions.CreateFileFromTemplateAction
 import com.intellij.ide.actions.CreateFileFromTemplateDialog
 import com.intellij.ide.fileTemplates.FileTemplate
@@ -67,9 +68,5 @@ class CreateDartTestAction : CreateFileFromTemplateAction(
 
     private fun isAlreadyInTestDirectory(relativeFilePath: String): Boolean {
         return relativeFilePath.contains(UNIT_TEST_PATH)
-    }
-
-    companion object {
-        const val UNIT_TEST_PATH = "test/unit-tests/"
     }
 }

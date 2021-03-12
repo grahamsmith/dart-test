@@ -1,5 +1,8 @@
 package com.github.grahamsmith.darttest.actions
 
+import com.github.grahamsmith.darttest.actions.ActionHelper.Companion.DART_FILE_EXTENSION
+import com.github.grahamsmith.darttest.actions.ActionHelper.Companion.TEST_FILE_NAME_SUFFIX
+import com.github.grahamsmith.darttest.actions.ActionHelper.Companion.UNIT_TEST_PATH
 import com.github.grahamsmith.darttest.extensions.camelToSnakeCase
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.ide.fileTemplates.FileTemplateManager
@@ -52,7 +55,7 @@ class CreateDartTestFromIntentionAction : IntentionAction {
 
         val newPath = when (isAlreadyInTestDirectory(relativePath)) {
             true -> "${projectPath.toNioPath()}$relativePath"
-            false -> "${projectPath.toNioPath()}/${CreateDartTestAction.UNIT_TEST_PATH}$relativePath"
+            false -> "${projectPath.toNioPath()}/$UNIT_TEST_PATH$relativePath"
         }
 
         val newDir = VfsUtil.createDirectories(newPath)
@@ -108,11 +111,5 @@ class CreateDartTestFromIntentionAction : IntentionAction {
 
     private fun isAlreadyInTestDirectory(relativeFilePath: String): Boolean {
         return relativeFilePath.contains(UNIT_TEST_PATH)
-    }
-
-    companion object {
-        const val UNIT_TEST_PATH = "test/unit-tests/"
-        const val TEST_FILE_NAME_SUFFIX = "_test"
-        const val DART_FILE_EXTENSION = ".dart"
     }
 }
