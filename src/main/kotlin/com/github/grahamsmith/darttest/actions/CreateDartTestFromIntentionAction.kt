@@ -47,11 +47,11 @@ class CreateDartTestFromIntentionAction : IntentionAction {
 
         val projectFileIndex = ProjectFileIndex.SERVICE.getInstance(project)
         val projectPath = projectFileIndex.getContentRootForFile(file.virtualFile)
-                ?: throw IllegalArgumentException("Unable to get project path")
+            ?: throw IllegalArgumentException("Unable to get project path")
 
         val relativePath = VfsUtilCore.getRelativePath(file.virtualFile.parent, projectPath)
-                .orEmpty()
-                .replace("lib/", "")
+            .orEmpty()
+            .replace("lib/", "")
 
         val newPath = when (isAlreadyInTestDirectory(relativePath)) {
             true -> "${projectPath.toNioPath()}$relativePath"
@@ -69,11 +69,7 @@ class CreateDartTestFromIntentionAction : IntentionAction {
         }
     }
 
-    private fun createTestFile(
-            project: Project,
-            fileName: String,
-            dir: PsiDirectory
-    ) {
+    private fun createTestFile(project: Project, fileName: String, dir: PsiDirectory) {
         runUndoTransparentWriteAction {
 
             val fileTemplateManager = FileTemplateManager.getInstance(project)

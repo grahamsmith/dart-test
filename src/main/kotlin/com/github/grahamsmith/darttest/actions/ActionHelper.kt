@@ -11,7 +11,6 @@ import org.jetbrains.annotations.Nullable
 
 class ActionHelper private constructor() {
 
-
     companion object {
 
         fun isDartAvailable(context: DataContext): Boolean {
