@@ -5,8 +5,6 @@ import com.intellij.ide.actions.CreateFileFromTemplateAction
 import com.intellij.ide.actions.CreateFileFromTemplateDialog
 import com.intellij.ide.fileTemplates.FileTemplate
 import com.intellij.openapi.actionSystem.DataContext
-import com.intellij.openapi.actionSystem.LangDataKeys
-import com.intellij.openapi.module.ModuleTypeWithWebFeatures
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.util.io.FileUtilRt
@@ -15,29 +13,25 @@ import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.file.PsiDirectoryFactory
-import com.intellij.psi.search.FileTypeIndex
-import com.jetbrains.lang.dart.DartFileType
-import com.jetbrains.lang.dart.sdk.DartSdk
 import icons.DartIcons
 
-class CreateDartTestAction : CreateFileFromTemplateAction(MyBundle.messagePointer("action.title.dart-test.file"),
-        MyBundle.messagePointer("action.description.create.dart-test.file"),
-        DartIcons.Dart_test) {
+class CreateDartTestAction : CreateFileFromTemplateAction(
+    MyBundle.messagePointer("action.title.dart-test.file"),
+    MyBundle.messagePointer("action.description.create.dart-test.file"),
+    DartIcons.Dart_test
+) {
 
     override fun buildDialog(project: Project, directory: PsiDirectory, builder: CreateFileFromTemplateDialog.Builder) {
         builder
-                .setTitle(MyBundle.message("new.dart-test.file.title"))
-                .addKind(MyBundle.message("list.item.dart-test.file"), DartIcons.Dart_test, "Dart Test File")
+            .setTitle(MyBundle.message("new.dart-test.file.title"))
+            .addKind(MyBundle.message("list.item.dart-test.file"), DartIcons.Dart_test, "Dart Test File")
     }
 
     override fun isAvailable(dataContext: DataContext?): Boolean {
 
         val context = dataContext ?: return false
 
-        val module = LangDataKeys.MODULE.getData(context)
-        return super.isAvailable(dataContext) && module != null &&
-                (FileTypeIndex.containsFileOfType(DartFileType.INSTANCE, module.moduleContentScope) ||
-                        DartSdk.getDartSdk(module.project) != null && ModuleTypeWithWebFeatures.isAvailable(module))
+        return super.isAvailable(dataContext) && ActionHelper.isDartAvailable(context)
     }
 
     override fun getActionName(directory: PsiDirectory?, newName: String, templateName: String?): String {
@@ -54,9 +48,11 @@ class CreateDartTestAction : CreateFileFromTemplateAction(MyBundle.messagePointe
         val project = dir.project
 
         val projectPath = ProjectFileIndex.SERVICE.getInstance(project).getContentRootForFile(dir.virtualFile)
-                ?: throw IllegalArgumentException("Unable to get project path")
+            ?: throw IllegalArgumentException("Unable to get project path")
 
-        val relativePath = VfsUtilCore.getRelativePath(dir.virtualFile, projectPath).orEmpty().replace("lib/", "")
+        val relativePath = VfsUtilCore.getRelativePath(dir.virtualFile, projectPath)
+            .orEmpty()
+            .replace("lib/", "")
 
         val newPath = when (isAlreadyInTestDirectory(relativePath)) {
             true -> "${projectPath.toNioPath()}/$relativePath"
