@@ -1,19 +1,38 @@
 <idea-plugin>
     <id>com.github.grahamsmith.darttest</id>
-    <name>dart-test</name>
+    <name>Dart Test</name>
     <vendor>grahamsmith</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>Dart</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.grahamsmith.darttest.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.grahamsmith.darttest.services.MyProjectService"/>
+        <internalFileTemplate name="Dart Test File"/>
+        <intentionAction>
+            <className>com.github.grahamsmith.darttest.actions.CreateDartTestFromIntentionAction</className>
+        </intentionAction>
     </extensions>
 
     <applicationListeners>
         <listener class="com.github.grahamsmith.darttest.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+    <actions>
+        <action id="com.github.grahamsmith.darttest.actions.CreateDartTestAction"
+                class="com.github.grahamsmith.darttest.actions.CreateDartTestAction" text="Create Dart Test Action"
+                description="Creates a dart test in a mirrored package tree">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="com.github.grahamsmith.darttest.actions.CreateDartTestFromIntentionAction"
+                class="com.github.grahamsmith.darttest.actions.CreateDartTestFromIntentionAction" text="Create Dart Test Action"
+                description="Creates a dart test in a mirrored package tree">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>
