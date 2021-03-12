@@ -1,24 +1,26 @@
 # dart-test
 
 ![Build](https://github.com/grahamsmith/dart-test/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [x] Verify the [pluginGroup](/gradle.properties), [plugin ID](/src/main/resources/META-INF/plugin.xml) and [sources package](/src/main/kotlin).
-- [x] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the Plugin ID in the above README badges.
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+[![Version](https://img.shields.io/jetbrains/plugin/v/16299.svg)](https://plugins.jetbrains.com/plugin/16299)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/16299.svg)](https://plugins.jetbrains.com/plugin/16299)
 
 <!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+##Description
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+This plugin addresses missing functionality when working with Dart/Flutter, specifically the pain of creating tests in a package structure that reflects the implementation code.
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
+Features:
+
+- alt+enter on a class name to generate a test inside the tests folder following the same relative path.
+- Right click on a dart file to create a test file, via the new file menu, in the test folder in the same relative location.
+- Right click inside the test folder to create a test in that location.
+- All tests come with the test package as imported and the bare bones to create a test.
+
+Future work:
+
+- Create other types of test e.g. widget and test groups.
+- Allow the path to unit, widget and integration tests to be configurable.
+
 <!-- Plugin description end -->
 
 ## Installation
