@@ -25,7 +25,7 @@ All tests are generated ready to go with the basic elements filled in. Groups an
 ![Create a Dart Test file from source or test folders](https://github.com/grahamsmith/dart-test/blob/main/images/unit_test_template.png?raw=true)
 
 
-Future work:
+### Future work
 
 - Create other types of test e.g. widget and test groups.
 - Allow the path to unit, widget and integration tests to be configurable.
