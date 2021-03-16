@@ -15,7 +15,7 @@ Features:
 - Right click inside the test folder to create a test in that location.
 - All tests come with the test package as imported and the bare bones to create a test.
 
-Create a Date Test file from the "New Item" menu, give it a name and watch it *magically* create the test in the right folder .
+Create a Dart Test file from the "New Item" menu, give it a name and watch it *magically* create the test in the right folder .
 
 ![Create a Dart Test file from source or test folders](https://github.com/grahamsmith/dart-test/blob/main/images/new_dart_file.png?raw=true)
 
