@@ -4,9 +4,8 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/16299.svg)](https://plugins.jetbrains.com/plugin/16299)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/16299.svg)](https://plugins.jetbrains.com/plugin/16299)
 
-<!-- Plugin description -->
 ## Description
-
+<!-- Plugin description -->
 This plugin addresses missing functionality when working with Dart/Flutter, specifically the pain of creating tests in a package structure that reflects the implementation code.
 
 Features:
