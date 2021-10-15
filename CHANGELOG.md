@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 ## [0.0.6]
+## [0.0.6]
 
 - Updated compatibility with newer IntelliJ and Android Studio
 
