@@ -25,7 +25,7 @@ class ActionHelper private constructor() {
 
         private fun hasDartSdk(project: Project): Boolean = DartSdk.getDartSdk(project) != null
 
-        const val UNIT_TEST_PATH = "test/unit-tests/"
+        const val UNIT_TEST_PATH = "test/"
         const val TEST_FILE_NAME_SUFFIX = "_test"
         const val DART_FILE_EXTENSION = ".dart"
     }
