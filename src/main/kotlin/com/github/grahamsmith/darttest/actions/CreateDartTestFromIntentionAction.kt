@@ -91,11 +91,14 @@ class CreateDartTestFromIntentionAction : IntentionAction {
 
     private fun getFilenameSuggestion(editor: Editor?, project: Project, file: VirtualFile): String {
         editor?.caretModel?.currentCaret?.offset?.let { offset ->
-            val psiElement = PsiManager.getInstance(project).findFile(file)?.findElementAt(offset) ?: return@let
 
-            val classElement = PsiTreeUtil.getParentOfType(psiElement, DartClassDefinition::class.java) ?: return@let
+            val currentFile = PsiManager.getInstance(project).findFile(file)
 
-            return "${classElement.name}"
+            val psiElement = currentFile?.findElementAt(offset)
+
+            val classElement = PsiTreeUtil.getParentOfType(psiElement, DartClassDefinition::class.java)
+
+            return classElement?.name ?: currentFile?.name?.removeSuffix(".dart") ?: return@let
         }
 
         throw IllegalStateException("Unable to calculate new test file name")
