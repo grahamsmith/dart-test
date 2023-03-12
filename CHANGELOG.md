@@ -2,7 +2,9 @@
 
 # dart-test Changelog
 
-## [Unreleased]
+## [0.0.8]
+- Fixes to allow usage in latest Android Studio and IntelliJ
+- Support for top level functions.
 
 ## [0.0.7]
 Update to latest plugin dependencies and template.
