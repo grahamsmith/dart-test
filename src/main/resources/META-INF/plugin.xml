@@ -16,11 +16,6 @@
             <className>com.github.grahamsmith.darttest.actions.CreateDartTestFromIntentionAction</className>
         </intentionAction>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.grahamsmith.darttest.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
     <actions>
         <action id="com.github.grahamsmith.darttest.actions.CreateDartTestAction"
                 class="com.github.grahamsmith.darttest.actions.CreateDartTestAction" text="Create Dart Test Action"
