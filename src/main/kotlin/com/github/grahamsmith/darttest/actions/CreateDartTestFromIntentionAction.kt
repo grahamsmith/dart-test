@@ -45,7 +45,7 @@ class CreateDartTestFromIntentionAction : IntentionAction {
             "${it}$TEST_FILE_NAME_SUFFIX"
         }
 
-        val projectFileIndex = ProjectFileIndex.SERVICE.getInstance(project)
+        val projectFileIndex = ProjectFileIndex.getInstance(project)
         val projectPath = projectFileIndex.getContentRootForFile(file.virtualFile)
             ?: throw IllegalArgumentException("Unable to get project path")
 

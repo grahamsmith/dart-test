@@ -48,7 +48,7 @@ class CreateDartTestAction : CreateFileFromTemplateAction(
         val className = FileUtilRt.getNameWithoutExtension(name!!)
         val project = dir.project
 
-        val projectPath = ProjectFileIndex.SERVICE.getInstance(project).getContentRootForFile(dir.virtualFile)
+        val projectPath = ProjectFileIndex.getInstance(project).getContentRootForFile(dir.virtualFile)
             ?: throw IllegalArgumentException("Unable to get project path")
 
         val relativePath = VfsUtilCore.getRelativePath(dir.virtualFile, projectPath)
