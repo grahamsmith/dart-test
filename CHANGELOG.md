@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+## 0.1.3 - 2023-11-22
+- Update to work with newer Android Studio / InteliJ
+
 ## 0.1.0 - 2023-03-12
 - Fix deprecated API usages in IntellIJ
 
