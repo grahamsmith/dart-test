@@ -4,6 +4,9 @@
 
 ## Unreleased
 
+## 0.1.4 - 2024-10-18
+Updated to 2024 IntelIJ
+
 ## 0.1.3 - 2023-11-22
 - Update to work with newer Android Studio / InteliJ
 
