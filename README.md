@@ -23,6 +23,10 @@ All tests are generated ready to go with the basic elements filled in. Groups an
 
 ![Create a Dart Test file from source or test folders](https://github.com/grahamsmith/dart-test/blob/main/images/unit_test_template.png?raw=true)
 
+### Contributors
+
+- [@atreeon](https://github.com/atreeon)
+
 
 ### Future work
 
